@@ -1,14 +1,14 @@
 version: '3'
 services:
   frontend:
-    build: ./frontend
+    image: cardotisler/dswarm-frontend:1.0.0
     ports:
       - "5173:5173"
     networks:
       - docker-swarm-network
 
   backend:
-    build: ./backend
+    image: cardotisler/dswarm-backend:1.0.0
     env_file:
       - .env-db
     ports:
@@ -17,13 +17,22 @@ services:
       - docker-swarm-network
 
   db:
-    build: ./backend/db
+    image: mysql/mysql-server:5.7
     env_file:
       - .env-db
     volumes:
       - "./backend/db/init.sql:/docker-entrypoint-initdb.d/init.sql"
     ports:
       - "3306:3306"
+    networks:
+      - docker-swarm-network
+
+  monitor:
+    image: dockersamples/visualizer
+    ports:
+      - "8080:8080"
+    volumes:
+      - "/var/run/docker.sock:/var/run/docker.sock"
     networks:
       - docker-swarm-network
 

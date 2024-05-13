@@ -7,11 +7,11 @@ function App() {
   const [count, setCount] = useState(0)
 
   const handleClick = async () => {
-    await fetch('http://localhost:3001/healthcheck').then((res) => res.json()).then(console.log);
+    await fetch('http://backend:3001/healthcheck').then((res) => res.json()).then(console.log);
   }
 
   const handleUsersClick = async () => {
-    await fetch('http://localhost:3001/users').then((res) => res.json()).then(console.log);
+    await fetch('http://backend:3001/users').then((res) => res.json()).then(console.log);
   }
 
   return (
